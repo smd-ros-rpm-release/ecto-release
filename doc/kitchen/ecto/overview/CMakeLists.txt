@@ -1,8 +1,7 @@
-#!/usr/bin/env python
-# 
+#
 # Copyright (c) 2011, Willow Garage, Inc.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -13,7 +12,7 @@
 #     * Neither the name of the Willow Garage, Inc. nor the names of its
 #       contributors may be used to endorse or promote products derived from
 #       this software without specific prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,33 +24,16 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-# 
-import ecto
-from ecto.opts import scheduler_options, run_plasm
-from ecto import Constant
-from ecto.ecto_test import Multiply, Printer
-import argparse
+#
+#add_executable(functor functor.cpp)
 
-parser = argparse.ArgumentParser(description='My awesome program thing.')
+ectomodule(ecto_overview DESTINATION ecto
+  module.cpp
+  cell.cpp
+  nop.cpp
+  interface.cpp
+  )
 
-#our local command line args.
-parser.add_argument('--value', metavar='VALUE', dest='value',
-                    type=float, default=3, help='A value to use a constant.')
-parser.add_argument('--factor', metavar='FACTOR', dest='factor',
-                    type=float, default=5, help='The factor to multiply the constant with.')
-
-#add ecto scheduler args.
-scheduler_options(parser)
-options = parser.parse_args()
-
-c = Constant(value=options.value)
-m = Multiply(factor=options.factor)
-pr = Printer()
-plasm = ecto.Plasm()
-plasm.connect(c[:] >> m[:],
-              m[:] >> pr[:]
-              )
-#run the scheduler given the options, plasm, and our local variables.
-run_plasm(options, plasm, locals=vars())
-
-
+#add_dependencies(ecto-sphinx
+#  ecto_overview_ectomodule functor
+#  )

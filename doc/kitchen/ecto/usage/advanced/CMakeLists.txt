@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # 
 # Copyright (c) 2011, Willow Garage, Inc.
 # All rights reserved.
@@ -26,32 +25,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 # 
-import ecto
-from ecto.opts import scheduler_options, run_plasm
-from ecto import Constant
-from ecto.ecto_test import Multiply, Printer
-import argparse
+add_executable(tutorial_native_plasm
+  native_plasm.cpp
+  )
 
-parser = argparse.ArgumentParser(description='My awesome program thing.')
-
-#our local command line args.
-parser.add_argument('--value', metavar='VALUE', dest='value',
-                    type=float, default=3, help='A value to use a constant.')
-parser.add_argument('--factor', metavar='FACTOR', dest='factor',
-                    type=float, default=5, help='The factor to multiply the constant with.')
-
-#add ecto scheduler args.
-scheduler_options(parser)
-options = parser.parse_args()
-
-c = Constant(value=options.value)
-m = Multiply(factor=options.factor)
-pr = Printer()
-plasm = ecto.Plasm()
-plasm.connect(c[:] >> m[:],
-              m[:] >> pr[:]
-              )
-#run the scheduler given the options, plasm, and our local variables.
-run_plasm(options, plasm, locals=vars())
-
-
+target_link_libraries(tutorial_native_plasm
+  ecto
+  ${ECTO_DEP_LIBS}
+  hello_ecto_ectomodule #uses cells from this module.
+)

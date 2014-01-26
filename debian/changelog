@@ -1,0 +1,8 @@
+ros-groovy-ecto (0.6.0-0quantal) quantal; urgency=high
+
+  * drop Fuerte support
+  * fix compilation errors on recent boost
+
+ -- Vincent Rabaud <vrabaud@willowgarage.com>  Sun, 26 Jan 2014 15:37:06 +0100
+
+

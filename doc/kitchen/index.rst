@@ -37,8 +37,8 @@ If you want to install from source, you will have to get them from https://githu
 .. code-block:: bash
 
   mkdir ecto_kitchen && cd ecto_kitchen
+  sudo pip install catkin_pkg breathe empy
   git clone http://github.com/ros/catkin.git
-  git clone http://github.com/ros-infrastructure/catkin_pkg.git
   git clone http://github.com/plasmodic/ecto.git
   ln -s catkin/cmake/toplevel.cmake CMakeLists.txt
 
@@ -59,7 +59,6 @@ to your Python path:
 
 .. code-block:: bash
 
-  export PYTHONPATH=`pwd`/catkin_pkg/src:$PYTHONPATH
   mkdir build && cd build && cmake ../ && make
 
 .. rubric:: Bug reports
@@ -71,4 +70,3 @@ Please use the github infrastructure fot the desired module on https://github.co
 Also feel free to join the email list:
 
 * site: http://groups.google.com/a/plasmodic.org/group/ecto-dev
-* email: **ecto-dev@plasmodic.org**

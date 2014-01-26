@@ -25,9 +25,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-#find_package(GTest)
 
-if(NOT GTEST_FOUND)
+if(NOT CATKIN_ENABLE_TESTING)
   message(STATUS "Disabling testing since gtest was not found.")
   return()
 endif()
@@ -37,7 +36,7 @@ include_directories(SYSTEM ${GTEST_INCLUDE_DIRS}
                            ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(ecto-test
+catkin_add_gtest(ecto-test
   main.cpp
   tendril.cpp
   tendrils.cpp
@@ -54,11 +53,8 @@ add_executable(ecto-test
 
 target_link_libraries(ecto-test
   ecto
-  ${GTEST_LIBRARIES}
   ${ECTO_DEP_LIBS}
-  )
-
-add_test(ecto_gtest_units ${CATKIN_ENV} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ecto-test --gtest_output=xml:${CMAKE_BINARY_DIR}/ecto-test.xml)
+)
 
 #this needs some more thought.
 #add_executable(plasm_loader

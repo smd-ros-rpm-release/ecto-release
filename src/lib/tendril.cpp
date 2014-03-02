@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 //
+#include <Python.h>
 #include <ecto/tendril.hpp>
 #include <boost/python.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

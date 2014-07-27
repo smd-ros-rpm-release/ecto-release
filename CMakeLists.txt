@@ -38,7 +38,7 @@ find_package(PythonLibs REQUIRED)
 
 
 catkin_package(CFG_EXTRAS ecto-extras.cmake
-               DEPENDS Boost PythonLibs Threads
+               DEPENDS Boost PYTHON Threads
                INCLUDE_DIRS include
                LIBRARIES ecto
 )
@@ -75,7 +75,7 @@ git_status(ecto)
 include_directories(include)
 include_directories(src/lib)
 include_directories(${CATKIN_DEVEL_PREFIX}/include)
-include_directories(SYSTEM
+include_directories(
   ${PYTHON_INCLUDE_PATH}
   ${Boost_INCLUDE_DIRS}
 )

@@ -35,6 +35,7 @@ import sys
 import inspect
 from pydoc import ispackage
 from inspect import ismodule
+import multiprocessing
 
 def print_tendrils(tendril, n):
     for x in tendril :
@@ -75,18 +76,6 @@ def list_cells(pymodule):
 list_ecto_module = list_cells
 
 def view_plasm(plasm):
-    saveit = sys.argv
-    sys.argv = [sys.argv[0]]
-    try:
-        import gtk
-        import xdot
-    except ImportError, e:
-        print e
-        print "view_plasm requires gobject gtk graphviz, possibly more to run..."
-        return
-    window = xdot.DotWindow()
-    x = plasm.viz()
-    window.set_dotcode(x)
-    window.connect('destroy', gtk.main_quit)
-    gtk.main()
-    sys.argv = saveit
+    process = multiprocessing.Process(target=ecto.impl.view_plasm, args=(plasm,))
+    process.daemon = True
+    process.start()

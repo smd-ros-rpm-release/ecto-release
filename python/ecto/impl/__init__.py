@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2011, Willow Garage, Inc.
+# Copyright (c) 2014, Yujin Robot, Inc.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,52 +26,4 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 
-if(NOT CATKIN_ENABLE_TESTING)
-  message(STATUS "Disabling testing since gtest was not found.")
-  return()
-endif()
-
-include_directories(${GTEST_INCLUDE_DIRS}
-                    ${PYTHON_INCLUDE_PATH}
-                    ${Boost_INCLUDE_DIRS}
-)
-
-catkin_add_gtest(ecto-test
-  main.cpp
-  tendril.cpp
-  tendrils.cpp
-  spore.cpp
-  exceptions.cpp
-  graph.cpp
-  profile.cpp
-  serialization.cpp
-  strands.cpp
-  scheduler.cpp
-  clone.cpp
-  static.cpp
-  )
-
-target_link_libraries(ecto-test
-  ecto
-  ${Boost_LIBRARIES}
-  ${catkin_LIBRARIES}
-  ${PYTHON_LIBRARIES}
-)
-
-#this needs some more thought.
-#add_executable(plasm_loader
-#  plasm_loader.cpp
-#  )
-
-#target_link_libraries(plasm_loader
-#  ecto
-#  ${Boost_LIBRARIES}
-#  ${catkin_LIBRARIES}
-#)
-
-#has a dependency on another test so lets declare the test there.
-#add_test(plasm_loader
-#    ${CMAKE_BINARY_DIR}/bin/plasm_loader
-#    ${ecto_BINARY_DIR}/plasm.ecto
-#    8
-#)
+from .view_plasm import view_plasm

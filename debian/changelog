@@ -1,0 +1,77 @@
+ros-indigo-ecto (0.6.5-0saucy) saucy; urgency=high
+
+  * do not install dev ectoConfig*
+    fixes #262 <https://github.com/plasmodic/ecto/issues/262>
+  * Merge pull request #261 <https://github.com/plasmodic/ecto/issues/261> from stonier/bugfix_pythonic_cells
+    Bugfix pythonic cell construction
+  * Merge pull request #263 <https://github.com/plasmodic/ecto/issues/263> from stonier/dot_graph_titles
+    Add title to the dot graph windows
+  * add title to the dot graph windows.
+  * bugfix pythonic cell construction and parameter argument invocation.
+  * Merge pull request #259 <https://github.com/plasmodic/ecto/issues/259> from stonier/dynamic_reconfigure_whitelist
+    A whitelist for dynamic reconfigure
+  * Merge pull request #254 <https://github.com/plasmodic/ecto/issues/254> from stonier/optional_inputs
+    optional processing of connected inputs only
+  * Merge pull request #258 <https://github.com/plasmodic/ecto/issues/258> from stonier/dynamic_reconfigure
+    Boolean types for dynamic reconfigure
+  * Use the value, don't assume it is true.
+  * a whitelist for dynamic reconfigure.
+  * bugfix boolean parameter setting in dynamic reconfigure.
+  * checkboxes for dynamic reconfigure.
+  * optional processing of connected inputs only.
+  * Contributors: Daniel Stonier, Vincent Rabaud
+
+ -- Vincent Rabaud <vincent.rabaud@gmail.com>  Fri, 05 Sep 2014 22:00:00 -0000
+
+ros-indigo-ecto (0.6.4-0saucy) saucy; urgency=high
+
+  * Posix signal handling
+  * proper depends syntax for pythonlibs find-packages variables.
+  * add the impl sub-package to the python setup.
+  * subprocessing view_plasm
+  * sigint handling for sync and async executors
+  * remove usage of SYSTEM in include_directories.
+  * experimental signal connection for sync executions.
+  * internal 0.4 xdot is broken on trusty, this moves it out to 0.5 as a rosdep entity.
+  * Contributors: Daniel Stonier, Vincent Rabaud
+
+ -- Vincent Rabaud <vincent.rabaud@gmail.com>  Sat, 26 Jul 2014 22:00:00 -0000
+
+ros-indigo-ecto (0.6.3-0saucy) saucy; urgency=high
+
+  * Merge pull request #247 <https://github.com/plasmodic/ecto/issues/247> from cottsay/master
+    Added depend on python
+  * Added depend on python
+  * Contributors: Scott K Logan, Vincent Rabaud
+
+ -- Vincent Rabaud <vincent.rabaud@gmail.com>  Wed, 02 Apr 2014 22:00:00 -0000
+
+ros-indigo-ecto (0.6.2-0saucy) saucy; urgency=high
+
+  * get the tests to compile on OSX
+  * solve boost::bind problem on some compilers
+  * fixes #245 <https://github.com/plasmodic/ecto/issues/245> according to http://bugs.python.org/issue10910
+  * trust catkin to handle the version number
+  * trust catkin to handle ecto_LIBRARIES
+  * Contributors: Vincent Rabaud
+
+ -- Vincent Rabaud <vincent.rabaud@gmail.com>  Sat, 01 Mar 2014 23:00:00 -0000
+
+ros-indigo-ecto (0.6.1-0saucy) saucy; urgency=high
+
+  * get tests to pass with boost 1.54
+  * update maintainers
+  * fix compilation on Saucy
+  * fix warnings in the doc
+  * Contributors: Vincent Rabaud
+
+ -- Vincent Rabaud <vincent.rabaud@gmail.com>  Sat, 15 Feb 2014 23:00:00 -0000
+
+ros-indigo-ecto (0.6.0-0saucy) saucy; urgency=high
+
+  * drop Fuerte support
+  * fix compilation errors on recent boost
+
+ -- Vincent Rabaud <vrabaud@willowgarage.com>  Sun, 26 Jan 2014 15:37:06 +0100
+
+

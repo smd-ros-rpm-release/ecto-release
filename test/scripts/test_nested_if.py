@@ -1,7 +1,8 @@
-#
-# Copyright (c) 2011, Willow Garage, Inc.
+#!/usr/bin/env python
+# 
+# Copyright (c) 2014, Yujin Robot
 # All rights reserved.
-#
+# 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -9,10 +10,10 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of the Willow Garage, Inc. nor the names of its
+#     * Neither the name of the Yujin Robot nor the names of its
 #       contributors may be used to endorse or promote products derived from
 #       this software without specific prior written permission.
-#
+# 
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,69 +25,33 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#
-#this helps with visual studio projects.
-file(GLOB ecto_HEADERS
-  ${CMAKE_SOURCE_DIR}/include/ecto/*.hpp
-  ${CMAKE_SOURCE_DIR}/include/ecto/*/*.hpp
-  )
-source_group("Headers" FILES ${ecto_HEADERS})
+# 
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+import ecto
+import ecto.ecto_test as ecto_test
 
-add_library(ecto SHARED
-  abi.cpp
-  cell.cpp
-  edge.cpp
-  tendril.cpp
-  tendrils.cpp
-  plasm.cpp
-  plasm/impl.cpp
-  util.cpp
-  log.cpp
-  except.cpp
-  parameters.cpp
-  profile.cpp
-  python.cpp
-  registry.cpp
-  rethrow.cpp
-  serialization.cpp
-  scheduler.cpp
-  graph/utilities.cpp
-  strand.cpp
-  test.cpp
-  time.cpp
-  ${ecto_HEADERS}
-  )
+def test_nested_if():
+    plasm = ecto.Plasm()
+    g = ecto_test.Generate("Generator", step=1.0, start=1.0)
+    inside_if = ecto.If(input_tendril_name="on_threes", cell=g)
+    outside_if = ecto.If(input_tendril_name="on_twos", cell=inside_if)
+    truer_on_threes = ecto.TrueEveryN(n=3,count=0)
+    truer_on_twos = ecto.TrueEveryN(n=2,count=0)
+    plasm.connect([
+        truer_on_threes['flag'] >> outside_if['on_threes'],
+        truer_on_twos['flag'] >> outside_if['on_twos']
+    ])
+    #for x in range(0,18):
+    #    plasm.execute(niter=1)
+    #    print("No of times executed: %s of %s" % (g.outputs.out, x))
+        
+    # executes on the very first iteration (count = 0) and once every 3*2 iterations thereafter
+    plasm.execute(niter=18)
+    assert g.outputs.out == 3 # should have only called execute 3 times.
+    plasm.execute(niter=1)
+    assert g.outputs.out == 4 # should have executed once more
+if __name__ == '__main__':
+    test_nested_if()
 
-target_link_libraries(ecto
-  ${Boost_LIBRARIES}
-  ${catkin_LIBRARIES}
-  ${PYTHON_LIBRARIES}
-)
 
-set_source_files_properties(log.cpp
-  PROPERTIES
-  COMPILE_FLAGS -DSOURCE_DIR=\\"${ecto_SOURCE_DIR}\\"
-  )
 
-if(UNIX)
-  set_target_properties(ecto PROPERTIES
-    COMPILE_FLAGS "${FASTIDIOUS_FLAGS}"
-    VERSION ${ecto_VERSION}
-    SOVERSION ${ECTO_SOVERSION}
-    )
-elseif(WIN32)
-  set_target_properties(ecto PROPERTIES
-    COMPILE_FLAGS "${FASTIDIOUS_FLAGS}"
-    VERSION ${ecto_VERSION}
-    SOVERSION ${ECTO_SOVERSION}
-    OUTPUT_NAME ecto_cpp
-    )
-endif()
-
-#install the main shared lib
-install(TARGETS ecto
-        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-        COMPONENT main
-)

@@ -1,6 +1,6 @@
 <package>
   <name>ecto</name>
-  <version>0.6.8</version>
+  <version>0.6.9</version>
   <description>Ecto is a hybrid C++/Python development framework for constructing and maintaining pipelines.</description>
   <author email="erublee@willowgarage.com">Ethan Rublee</author>
   <author email="straszheim@willowgarage.com">Troy Straszheim</author>
@@ -14,6 +14,7 @@
 
   <run_depend>boost</run_depend>
   <run_depend>python</run_depend>
+  <run_depend>python-pyside</run_depend>
   <run_depend>xdot</run_depend>
 
   <buildtool_depend>catkin</buildtool_depend>
